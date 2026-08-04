@@ -1,0 +1,30 @@
+<Window x:Class="BaiduShareTool.Installer.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="百度网盘分享链接助手安装程序" Width="590" Height="315" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="app.ico">
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="16" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="18" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="42" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="安装百度网盘分享链接助手" FontSize="22" FontWeight="SemiBold" />
+        <TextBlock Grid.Row="2" Text="请选择程序安装目录，安装完成后会创建桌面快捷方式。" Foreground="#667085" TextWrapping="Wrap" />
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="10" /><ColumnDefinition Width="90" /></Grid.ColumnDefinitions>
+            <TextBox x:Name="InstallDirectoryTextBox" Height="36" VerticalContentAlignment="Center" Padding="10,0" />
+            <Button Grid.Column="2" Content="浏览目录" Click="Browse_Click" />
+        </Grid>
+        <StackPanel Grid.Row="6">
+            <ProgressBar x:Name="InstallProgressBar" Height="9" Minimum="0" Maximum="100" Value="0" />
+            <TextBlock x:Name="StatusTextBlock" Margin="0,8,0,0" Foreground="#667085" Text="准备安装" TextWrapping="Wrap" />
+        </StackPanel>
+        <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="CancelButton" Content="取消" Width="90" Margin="0,0,10,0" Click="Cancel_Click" />
+            <Button x:Name="InstallButton" Content="开始安装" Width="90" Click="Install_Click" Background="#2563EB" Foreground="White" />
+        </StackPanel>
+    </Grid>
+</Window>

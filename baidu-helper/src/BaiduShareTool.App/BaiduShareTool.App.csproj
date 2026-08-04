@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BaiduShareTool.Application\BaiduShareTool.Application.csproj" />
+    <ProjectReference Include="..\BaiduShareTool.Infrastructure\BaiduShareTool.Infrastructure.csproj" />
+    <ProjectReference Include="..\BaiduShareTool.Providers.Baidu\BaiduShareTool.Providers.Baidu.csproj" />
+    <ProjectReference Include="..\BaiduShareTool.Providers.Simulation\BaiduShareTool.Providers.Simulation.csproj" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\donation.jpg" />
+    <Resource Include="Resources\author-wechat.jpg" />
+    <Resource Include="Resources\app.ico" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,11 @@
+<Application x:Class="BaiduShareTool.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <BitmapImage x:Key="AppIcon" UriSource="pack://application:,,,/Resources/app.ico" />
+        <DrawingImage x:Key="CartoonAvatar"><DrawingImage.Drawing><DrawingGroup><GeometryDrawing Brush="#7BB6FF" Geometry="M1,1 H31 V31 H1 Z" /><GeometryDrawing Brush="#FFE0B2" Geometry="M7,10 C7,4 25,4 25,10 L25,23 C25,30 7,30 7,23 Z" /><GeometryDrawing Brush="#4338CA" Geometry="M6,12 C5,3 27,2 26,12 C22,9 12,9 6,12 Z" /><GeometryDrawing Brush="#172554" Geometry="M11,16 A1.8,1.8 0 1 1 11.1,16 M21,16 A1.8,1.8 0 1 1 21.1,16" /><GeometryDrawing Brush="#E85D75" Geometry="M13,22 C15,24 18,24 20,22 L19,22 C17,23 16,23 14,22 Z" /></DrawingGroup></DrawingImage.Drawing></DrawingImage>
+        <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#F6F8FB" />
+        <Style x:Key="PanelStyle" TargetType="Border"><Setter Property="Background" Value="White" /><Setter Property="CornerRadius" Value="10" /><Setter Property="BorderBrush" Value="#E7EAF0" /><Setter Property="BorderThickness" Value="1" /></Style>
+        <Style x:Key="MetricCardStyle" TargetType="Border" BasedOn="{StaticResource PanelStyle}"><Setter Property="Padding" Value="20" /></Style>
+    </Application.Resources>
+</Application>

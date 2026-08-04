@@ -1,0 +1,40 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+[Aa]rtifacts/
+[Ll]og[s]/
+*.log
+
+# Local .NET and NuGet caches
+.dotnet-home/
+.nuget-packages/
+packages/
+*.nupkg
+*.snupkg
+
+# IDE and editor settings
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.suo
+*.rsuser
+*.sln.docstates
+*.DotSettings.user
+
+# Test results and coverage
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+
+# Publish and installer output
+[Pp]ublish/
+[Dd]ist/
+installer/**/[Oo]utput/
+
+# OS-generated files
+Thumbs.db
+Desktop.ini
+.DS_Store

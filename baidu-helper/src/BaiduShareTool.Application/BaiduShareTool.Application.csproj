@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\BaiduShareTool.Domain\BaiduShareTool.Domain.csproj" />
+    <ProjectReference Include="..\BaiduShareTool.Providers.Abstractions\BaiduShareTool.Providers.Abstractions.csproj" />
+    <ProjectReference Include="..\BaiduShareTool.Export\BaiduShareTool.Export.csproj" />
+  </ItemGroup>
+</Project>

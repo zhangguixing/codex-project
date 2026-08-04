@@ -1,0 +1,10 @@
+<UserControl x:Class="BaiduShareTool.App.Views.SupportView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel>
+    <TextBlock Text="支持作者" FontSize="24" FontWeight="SemiBold"/>
+    <TextBlock Text="感谢你的认可。你可以选择赞助项目维护，或通过微信与作者交流。" Foreground="#667085" Margin="0,7,0,24"/>
+    <Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="18"/><ColumnDefinition/></Grid.ColumnDefinitions>
+      <Border Grid.Column="0" Style="{StaticResource PanelStyle}" Padding="22"><StackPanel><TextBlock Text="赞助支持" FontSize="18" FontWeight="SemiBold"/><TextBlock Text="用于项目维护、功能迭代和兼容性优化。" Foreground="#667085" Margin="0,6,0,16"/><Border Background="#F6FAF8" CornerRadius="8" Padding="10"><Image Source="/BaiduShareTool.App;component/Resources/donation.jpg" Stretch="Uniform" Height="360"/></Border><TextBlock Text="微信扫码赞助" HorizontalAlignment="Center" Foreground="#087443" FontWeight="SemiBold" Margin="0,14,0,0"/></StackPanel></Border>
+      <Border Grid.Column="2" Style="{StaticResource PanelStyle}" Padding="22"><StackPanel><TextBlock Text="联系作者" FontSize="18" FontWeight="SemiBold"/><TextBlock Text="遇到问题、提出建议或交流使用方式，欢迎添加作者微信。" Foreground="#667085" Margin="0,6,0,16" TextWrapping="Wrap"/><Border Background="#FAFAFA" CornerRadius="8" Padding="10"><Image Source="/BaiduShareTool.App;component/Resources/author-wechat.jpg" Stretch="Uniform" Height="360"/></Border><TextBlock Text="微信扫码添加作者" HorizontalAlignment="Center" Foreground="#2563EB" FontWeight="SemiBold" Margin="0,14,0,0"/></StackPanel></Border>
+    </Grid>
+  </StackPanel>
+</UserControl>

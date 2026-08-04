@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>false</EnableCompressionInSingleFile>
+    <AssemblyName>百度网盘分享链接助手安装程序</AssemblyName>
+    <RootNamespace>BaiduShareTool.Installer</RootNamespace>
+    <ApplicationIcon>..\src\BaiduShareTool.App\Resources\app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\artifacts\BaiduShareTool.zip" LogicalName="BaiduShareTool.zip" />
+    <Resource Include="..\src\BaiduShareTool.App\Resources\app.ico" Link="app.ico" />
+  </ItemGroup>
+</Project>
