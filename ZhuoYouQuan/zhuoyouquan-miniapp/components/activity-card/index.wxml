@@ -1,0 +1,9 @@
+<view class="card" bindtap="open">
+  <view class="topline">
+    <view class="game-mark">局</view>
+    <view class="title-group"><view class="game-type">{{item.gameType || '桌游'}}</view><view class="title">{{item.title}}</view></view>
+    <view class="fee">{{item.fee ? '¥' + item.fee : '免费'}}</view>
+  </view>
+  <view class="meta"><text>{{item.displayTime || '时间待定'}}</text><text class="dot">·</text><text>{{item.city || '同城'}}</text></view>
+  <view class="footer"><text>{{item.storeName || item.address || '地点待定'}}</text><text class="people">{{item.joinedPeople || 0}} / {{item.maxPeople || '-'}} 人</text></view>
+</view>

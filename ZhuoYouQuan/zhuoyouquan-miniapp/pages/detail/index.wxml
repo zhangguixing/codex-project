@@ -1,0 +1,18 @@
+<view class="page">
+  <view class="detail-nav"><button class="detail-back" bindtap="back" aria-label="返回上一页">‹</button><view class="detail-nav-title">活动详情</view><view class="detail-nav-placeholder"></view></view>
+  <view wx:if="{{loading}}" class="loading">正在加载活动详情...</view>
+  <block wx:elif="{{item}}">
+    <view class="masthead"><view class="pattern"></view><view class="type-badge">{{item.gameType || '桌游'}}</view><view class="title">{{item.title}}</view><view class="city">{{item.city || '同城'}} · {{item.newbieFriendly ? '新手友好' : '进阶局'}}</view></view>
+    <view class="details">
+      <view class="detail-row"><text>时间</text><b>{{item.displayTime || '时间待定'}}</b></view>
+      <view class="detail-row"><text>地点</text><b>{{item.storeName || item.address}}</b></view>
+      <view class="detail-row"><text>费用</text><b class="accent">{{item.fee ? '¥' + item.fee + ' / 人' : '免费'}}</b></view>
+      <view class="detail-row"><text>名额</text><b>{{item.joinedPeople || 0}} / {{item.maxPeople}} 人</b></view>
+    </view>
+    <view class="section-head"><view class="section-title">活动说明</view></view><view class="description">{{item.description || '暂未填写活动说明'}}</view>
+    <view class="section-head"><view class="section-title">发起人</view></view>
+    <view class="organizer"><view class="avatar">桌</view><view><view class="organizer-name">{{item.organizer ? item.organizer.nickname : '桌游玩家'}}</view><view class="muted">{{item.organizer && item.organizer.gameLevel ? item.organizer.gameLevel : '欢迎一起玩'}}</view></view></view>
+    <block wx:if="{{isOwner}}"><view class="section-head"><view class="section-title">报名情况</view></view><view class="participants"><view wx:for="{{item.participants}}" wx:key="id" class="participant"><view class="participant-avatar">{{item.nickname ? item.nickname.slice(0, 1) : '玩'}}</view><view>{{item.nickname || '桌游玩家'}}</view></view><view wx:if="{{!item.participants.length}}" class="muted">暂时还没有玩家报名</view></view></block>
+    <view class="bottom-space"></view><view class="join-bar"><button wx:if="{{isOwner}}" class="primary-button" bindtap="edit">编辑活动</button><button wx:else class="primary-button {{item.status !== 'OPEN' ? 'disabled' : ''}}" loading="{{joining}}" disabled="{{item.status !== 'OPEN' || joining}}" bindtap="join">{{item.status === 'OPEN' ? (item.joined ? '已报名' : '立即报名') : '报名已关闭'}}</button></view>
+  </block>
+</view>

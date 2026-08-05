@@ -1,0 +1,41 @@
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# Java / Maven build output
+zhuoyouquan-server/target/
+*.class
+
+# Java runtime logs
+*.log
+logs/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+application-local.yml
+application-local.yaml
+application-local.properties
+
+# WeChat DevTools local-only configuration
+zhuoyouquan-miniapp/project.private.config.json
+zhuoyouquan-miniapp/private.config.json
+
+# Node package and build caches
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.cache/
+dist/
+coverage/

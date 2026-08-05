@@ -1,0 +1,8 @@
+<view wx:if="{{!hidden}}" class="dock-shell">
+  <view class="dock">
+    <view wx:for="{{items}}" wx:key="path" class="dock-item {{item.active ? 'selected' : ''}} {{item.primary ? 'primary' : ''}}" data-path="{{item.path}}" data-index="{{index}}" bindtap="switchTab">
+      <image class="dock-icon" src="{{item.icon}}" mode="aspectFit" aria-label="{{item.text}}" />
+      <view class="dock-label">{{item.text}}</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,10 @@
+<view class="page">
+  <view class="page-tab-title">发现</view><view class="eyebrow">EXPLORE THE TABLE</view><view class="page-title">发现新玩法</view>
+  <view class="feature"><view class="top-orbit"></view><view class="feature-label">本周主题</view><view class="feature-title">狼人杀<br/>新手入门局</view><view class="feature-note">从一张角色牌开始认识同桌的人</view><view class="feature-card">◈</view></view>
+  <view class="section-head"><view class="section-title">最新活动</view><text class="section-action" bindtap="load">刷新</text></view>
+  <view wx:if="{{loading}}" class="loading">正在加载...</view>
+  <block wx:else>
+    <activity-card wx:for="{{activities}}" wx:key="id" item="{{item}}" />
+    <view wx:if="{{!activities.length}}" class="empty">这里很安静，先去附近看看吧。</view>
+  </block>
+</view>
