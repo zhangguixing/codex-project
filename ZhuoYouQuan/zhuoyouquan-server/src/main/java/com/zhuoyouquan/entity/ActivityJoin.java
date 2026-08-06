@@ -17,4 +17,5 @@ public class ActivityJoin {
     private String status;
     private LocalDateTime createdAt;
     private LocalDateTime canceledAt;
+    private LocalDateTime checkedInAt;
 }

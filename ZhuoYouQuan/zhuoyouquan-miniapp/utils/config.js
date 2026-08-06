@@ -1,4 +1,4 @@
 module.exports = {
-  baseUrl: "http://localhost:8080",
+  baseUrl: "http://172.16.1.44:8080",
   mockLogin: true
 };

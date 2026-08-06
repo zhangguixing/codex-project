@@ -66,7 +66,12 @@ public class AuthServiceImpl implements AuthService {
             String body = RestClient.create().get().uri("https://api.weixin.qq.com/sns/jscode2session?appid={id}&secret={secret}&js_code={code}&grant_type=authorization_code", wechat.getAppId(), wechat.getAppSecret(), code).retrieve().body(String.class);
             JsonNode node = mapper.readTree(body);
             if (node.has("errcode"))
-                throw new BizException("微信登录失败：" + node.path("errmsg").asText());return node.path("openid").asText();} catch(BizException e){throw e;}catch(Exception e){throw new BizException("微信服务不可用");
+                throw new BizException("微信登录失败：" + node.path("errmsg").asText());
+            return node.path("openid").asText();
+        } catch (BizException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BizException("微信服务不可用");
         }
     }
 }

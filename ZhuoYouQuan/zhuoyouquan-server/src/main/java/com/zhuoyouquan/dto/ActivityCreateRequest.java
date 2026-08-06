@@ -1,15 +1,10 @@
 package com.zhuoyouquan.dto;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import lombok.Data;
 
 @Data
 public class ActivityCreateRequest {
@@ -18,9 +13,6 @@ public class ActivityCreateRequest {
     private String title;
 
     private Long gameTypeId;
-
-    @Size(max = 32, message = "自定义游戏类型不能超过32个字符")
-    private String customGameType;
 
     private String coverUrl;
 
@@ -57,4 +49,11 @@ public class ActivityCreateRequest {
 
     @NotNull
     private Boolean newbieFriendly;
+    @Min(15)
+    @Max(720)
+    private Integer durationMinutes;
+    private String difficulty;
+    private String language;
+    private Boolean teachingProvided;
+    private Boolean bringGame;
 }

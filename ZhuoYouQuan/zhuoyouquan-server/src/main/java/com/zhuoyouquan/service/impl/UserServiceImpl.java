@@ -52,28 +52,36 @@ public class UserServiceImpl implements UserService {
             userGames.delete(new LambdaQueryWrapper<UserGame>().eq(UserGame::getUserId, userId));
             for (Long gameTypeId : r.getGameTypeIds()) {
                 if (gameTypes.selectById(gameTypeId) == null)
-                    throw new BizException("桌游类型不存在"); UserGame x=new UserGame(); x.setUserId(userId); x.setGameTypeId(gameTypeId); userGames.insert(x); } }
-                return toVO(user);
-            }
-            public User requireUser (Long id){
-                User user = users.selectById(id);
-                if (user == null) throw new BizException("用户不存在");
-                return user;
-            }
-            public UserVO toVO (User u){
-                UserVO v = new UserVO();
-                v.setId(u.getId());
-                v.setNickname(u.getNickname());
-                v.setAvatar(u.getAvatar());
-                v.setCity(u.getCity());
-                v.setDistrict(u.getDistrict());
-                v.setBio(u.getBio());
-                v.setGameLevel(u.getGameLevel());
-                UserCredit c = credits.selectOne(new LambdaQueryWrapper<UserCredit>().eq(UserCredit::getUserId, u.getId()));
-                v.setCreditScore(c == null ? 100 : c.getScore());
-                v.setCreditLevel(c == null ? "优秀玩家" : c.getLevel());
-                List<Long> ids = userGames.selectList(new LambdaQueryWrapper<UserGame>().eq(UserGame::getUserId, u.getId())).stream().map(UserGame::getGameTypeId).toList();
-                v.setFavoriteGames(ids.isEmpty() ? List.of() : gameTypes.selectBatchIds(ids).stream().map(GameType::getName).toList());
-                return v;
+                    throw new BizException("桌游类型不存在");
+                UserGame x = new UserGame();
+                x.setUserId(userId);
+                x.setGameTypeId(gameTypeId);
+                userGames.insert(x);
             }
         }
+        return toVO(user);
+    }
+
+    public User requireUser(Long id) {
+        User user = users.selectById(id);
+        if (user == null) throw new BizException("用户不存在");
+        return user;
+    }
+
+    public UserVO toVO(User u) {
+        UserVO v = new UserVO();
+        v.setId(u.getId());
+        v.setNickname(u.getNickname());
+        v.setAvatar(u.getAvatar());
+        v.setCity(u.getCity());
+        v.setDistrict(u.getDistrict());
+        v.setBio(u.getBio());
+        v.setGameLevel(u.getGameLevel());
+        UserCredit c = credits.selectOne(new LambdaQueryWrapper<UserCredit>().eq(UserCredit::getUserId, u.getId()));
+        v.setCreditScore(c == null ? 100 : c.getScore());
+        v.setCreditLevel(c == null ? "优秀玩家" : c.getLevel());
+        List<Long> ids = userGames.selectList(new LambdaQueryWrapper<UserGame>().eq(UserGame::getUserId, u.getId())).stream().map(UserGame::getGameTypeId).toList();
+        v.setFavoriteGames(ids.isEmpty() ? List.of() : gameTypes.selectBatchIds(ids).stream().map(GameType::getName).toList());
+        return v;
+    }
+}

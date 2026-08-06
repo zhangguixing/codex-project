@@ -20,11 +20,34 @@ function formatActivityTime(value) {
 }
 
 function decorateActivity(activity) {
-  return { ...activity, displayTime: formatActivityTime(activity && activity.startTime) };
+  return { ...activity, displayTime: formatActivityTime(activity && activity.startTime), coverUrl: coverUrl(activity && activity.coverUrl), coverTheme: coverTheme(activity && activity.gameType) };
 }
 
 function decorateActivityPage(page) {
   return { ...page, records: (page.records || []).map(decorateActivity) };
 }
 
-module.exports = { decorateActivity, decorateActivityPage, formatActivityTime };
+function isUpcomingActivity(activity) {
+  if (!activity || activity.status === "ENDED") return false;
+  const startTime = new Date(String(activity.startTime || "").replace("T", " ").replace(/-/g, "/"));
+  return !Number.isNaN(startTime.getTime()) && startTime.getTime() > Date.now();
+}
+
+module.exports = { decorateActivity, decorateActivityPage, formatActivityTime, isUpcomingActivity, coverTheme };
+const { baseUrl } = require("./config");
+
+function coverTheme(gameType) {
+  const type = String(gameType || "");
+  if (type.includes("狼人")) return "werewolf";
+  if (type.includes("剧本")) return "script";
+  if (type.includes("麻将")) return "mahjong";
+  if (type.includes("卡坦")) return "catan";
+  if (type.includes("三国")) return "sanguo";
+  if (type.includes("UNO") || type.includes("卡牌")) return "cards";
+  return "tabletop";
+}
+
+function coverUrl(value) {
+  if (!value) return "";
+  return /^https?:\/\//.test(value) ? value : `${baseUrl}${value}`;
+}

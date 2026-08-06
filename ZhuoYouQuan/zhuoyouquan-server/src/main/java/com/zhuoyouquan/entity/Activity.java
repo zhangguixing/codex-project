@@ -30,6 +30,11 @@ public class Activity {
     private Boolean aa;
     private String description;
     private Boolean newbieFriendly;
+    private Integer durationMinutes;
+    private String difficulty;
+    private String language;
+    private Boolean teachingProvided;
+    private Boolean bringGame;
     private String status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -5,6 +5,8 @@
     "pages/create/index",
     "pages/messages/index",
     "pages/profile/index",
+    "pages/stores/index",
+    "pages/store-detail/index",
     "pages/detail/index"
   ],
   "window": {

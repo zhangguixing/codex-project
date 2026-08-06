@@ -23,7 +23,10 @@
         <view class="picker-value {{hasType ? '' : 'placeholder'}}">{{typeLabel}}<text>></text></view>
       </picker>
     </view>
-    <view wx:if="{{isCustomType}}" class="field"><view class="label">自定义类型</view><input data-field="customGameType" bindinput="changeField" placeholder="例如：德州扑克、战棋" value="{{form.customGameType}}" maxlength="32" /></view></view>
+    <view class="field"><view class="label">活动封面</view><view class="cover-upload" bindtap="chooseCover"><image wx:if="{{form.coverUrl}}" class="cover-preview" src="{{form.coverUrl}}" mode="aspectFill"/><view wx:else class="cover-fallback {{coverTheme}}"><view>{{typeLabel === '请选择游戏类型' ? '桌游活动' : typeLabel}}</view><text>默认封面</text></view><view class="cover-upload-action"><text>{{uploadingCover ? '上传中...' : (form.coverUrl ? '更换封面' : '上传封面')}}</text><text>›</text></view></view></view>
+    </view>
+
+    <view class="form-group group-game"><view class="group-title">游戏信息</view><view class="split"><view class="field half"><view class="label">预计时长（分钟）</view><input type="number" data-field="durationMinutes" bindinput="changeField" value="{{form.durationMinutes}}" /></view><view class="field half"><view class="label">难度</view><picker range="{{['轻松','进阶','硬核']}}" bindchange="changeDifficulty"><view class="picker-value">{{form.difficulty}}</view></picker></view></view><view class="split"><view class="field half"><view class="label">语言</view><input data-field="language" bindinput="changeField" value="{{form.language}}" /></view><view class="field half"><view class="label">是否自带游戏</view><switch color="#D85143" checked="{{form.bringGame}}" data-field="bringGame" bindchange="changeSwitch" /></view></view><view class="switch-row"><view><view class="switch-title">提供新手教学</view><view class="switch-desc">到场后先讲规则与流程</view></view><switch color="#D85143" checked="{{form.teachingProvided}}" data-field="teachingProvided" bindchange="changeSwitch" /></view></view>
 
     <view class="form-group group-time"><view class="group-title">时间安排</view><view class="split">
       <view class="field half">

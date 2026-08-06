@@ -3,6 +3,7 @@ package com.zhuoyouquan.controller;
 import com.zhuoyouquan.common.ApiConstants;
 import com.zhuoyouquan.common.Result;
 import com.zhuoyouquan.dto.ActivityCreateRequest;
+import com.zhuoyouquan.dto.ActivityMessageRequest;
 import com.zhuoyouquan.dto.ActivityQuery;
 import com.zhuoyouquan.service.impl.ActivityServiceImpl;
 import com.zhuoyouquan.vo.ActivityVO;
@@ -23,14 +24,14 @@ public class ActivityController {
 
     @GetMapping
     @Operation(summary = "��б���ɸѡ")
-    public Result<PageVO<ActivityVO>> list(@ModelAttribute ActivityQuery q) {
-        return Result.ok(activities.list(q, null));
+    public Result<PageVO<ActivityVO>> list(HttpServletRequest r, @ModelAttribute ActivityQuery q) {
+        return Result.ok(activities.list(q, uidOrNull(r)));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "�����")
-    public Result<ActivityVO> detail(@PathVariable Long id) {
-        return Result.ok(activities.detail(id, null));
+    public Result<ActivityVO> detail(HttpServletRequest r, @PathVariable Long id) {
+        return Result.ok(activities.detail(id, uidOrNull(r)));
     }
 
     @PostMapping
@@ -59,6 +60,33 @@ public class ActivityController {
         return Result.ok(null);
     }
 
+    @PostMapping("/{id}/end")
+    @Operation(summary = "结束活动")
+    public Result<Void> end(HttpServletRequest r, @PathVariable Long id) {
+        activities.end(uid(r), id);
+        return Result.ok(null);
+    }
+
+    @PostMapping("/{id}/messages")
+    @Operation(summary = "给活动发起人留言")
+    public Result<Void> leaveMessage(HttpServletRequest r, @PathVariable Long id, @Valid @RequestBody ActivityMessageRequest request) {
+        activities.leaveMessage(uid(r), id, request);
+        return Result.ok(null);
+    }
+
+    @PostMapping("/{id}/participants/{participantId}/check-in")
+    @Operation(summary = "发起人确认参与者到场")
+    public Result<Void> checkIn(HttpServletRequest r, @PathVariable Long id, @PathVariable Long participantId) {
+        activities.checkIn(uid(r), id, participantId);
+        return Result.ok(null);
+    }
+
+    @PostMapping("/{id}/broadcasts")
+    public Result<Void> broadcast(HttpServletRequest r, @PathVariable Long id, @Valid @RequestBody ActivityMessageRequest request) {
+        activities.broadcast(uid(r), id, request);
+        return Result.ok(null);
+    }
+
     @GetMapping("/mine")
     @Operation(summary = "�ҵĻ")
     public Result<PageVO<ActivityVO>> mine(HttpServletRequest r, @RequestParam(defaultValue = "joined") String role) {
@@ -66,6 +94,10 @@ public class ActivityController {
     }
 
     private Long uid(HttpServletRequest r) {
+        return (Long) r.getAttribute(ApiConstants.USER_ID);
+    }
+
+    private Long uidOrNull(HttpServletRequest r) {
         return (Long) r.getAttribute(ApiConstants.USER_ID);
     }
 }

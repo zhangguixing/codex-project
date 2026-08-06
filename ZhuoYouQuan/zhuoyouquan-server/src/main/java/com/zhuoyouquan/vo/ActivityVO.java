@@ -24,10 +24,18 @@ public class ActivityVO {
     private Boolean aa;
     private String description;
     private Boolean newbieFriendly;
+    private Integer durationMinutes;
+    private String difficulty;
+    private String language;
+    private Boolean teachingProvided;
+    private Boolean bringGame;
     private String status;
     private LocalDateTime createdAt;
     private UserVO organizer;
     private List<UserVO> participants;
+    private List<Long> checkedInParticipantIds;
     private Boolean joined;
+    private Boolean waitlisted;
+    private Integer waitlistCount;
     private Boolean favorited;
 }

@@ -28,42 +28,48 @@ CREATE TABLE game_type
 ) ENGINE=InnoDB;
 CREATE TABLE activity
 (
-    id              BIGINT PRIMARY KEY AUTO_INCREMENT,
-    organizer_id    BIGINT         NOT NULL,
-    game_type_id    BIGINT         NOT NULL,
-    title           VARCHAR(80)    NOT NULL,
-    cover_url       VARCHAR(512),
-    start_time      DATETIME       NOT NULL,
-    max_people      INT            NOT NULL,
-    joined_people   INT            NOT NULL DEFAULT 0,
-    city            VARCHAR(32)    NOT NULL,
-    store_name      VARCHAR(80),
-    address         VARCHAR(255)   NOT NULL,
-    longitude       DECIMAL(10, 7),
-    latitude        DECIMAL(10, 7),
-    fee             DECIMAL(10, 2) NOT NULL DEFAULT 0,
-    aa              TINYINT        NOT NULL DEFAULT 1,
-    description     VARCHAR(2000)  NOT NULL,
-    newbie_friendly TINYINT        NOT NULL DEFAULT 0,
-    status          VARCHAR(16)    NOT NULL DEFAULT 'OPEN',
-    created_at      DATETIME       NOT NULL,
-    updated_at      DATETIME       NOT NULL,
-    deleted         TINYINT        NOT NULL DEFAULT 0,
-    INDEX           idx_activity_city_time(city,start_time),
-    INDEX           idx_activity_game(game_type_id),
+    id                BIGINT PRIMARY KEY AUTO_INCREMENT,
+    organizer_id      BIGINT         NOT NULL,
+    game_type_id      BIGINT         NOT NULL,
+    title             VARCHAR(80)    NOT NULL,
+    cover_url         VARCHAR(512),
+    start_time        DATETIME       NOT NULL,
+    max_people        INT            NOT NULL,
+    joined_people     INT            NOT NULL DEFAULT 0,
+    city              VARCHAR(32)    NOT NULL,
+    store_name        VARCHAR(80),
+    address           VARCHAR(255)   NOT NULL,
+    longitude         DECIMAL(10, 7),
+    latitude          DECIMAL(10, 7),
+    fee               DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    aa                TINYINT        NOT NULL DEFAULT 1,
+    description       VARCHAR(2000)  NOT NULL,
+    newbie_friendly   TINYINT        NOT NULL DEFAULT 0,
+    duration_minutes  INT,
+    difficulty        VARCHAR(16),
+    language          VARCHAR(32),
+    teaching_provided TINYINT        NOT NULL DEFAULT 0,
+    bring_game        TINYINT        NOT NULL DEFAULT 0,
+    status            VARCHAR(16)    NOT NULL DEFAULT 'OPEN',
+    created_at        DATETIME       NOT NULL,
+    updated_at        DATETIME       NOT NULL,
+    deleted           TINYINT        NOT NULL DEFAULT 0,
+    INDEX             idx_activity_city_time(city,start_time),
+    INDEX             idx_activity_game(game_type_id),
     CONSTRAINT fk_activity_organizer FOREIGN KEY (organizer_id) REFERENCES t_user (id),
     CONSTRAINT fk_activity_game FOREIGN KEY (game_type_id) REFERENCES game_type (id)
 ) ENGINE=InnoDB;
 CREATE TABLE activity_join
 (
-    id          BIGINT PRIMARY KEY AUTO_INCREMENT,
-    activity_id BIGINT      NOT NULL,
-    user_id     BIGINT      NOT NULL,
-    status      VARCHAR(16) NOT NULL,
-    created_at  DATETIME    NOT NULL,
-    canceled_at DATETIME,
+    id            BIGINT PRIMARY KEY AUTO_INCREMENT,
+    activity_id   BIGINT      NOT NULL,
+    user_id       BIGINT      NOT NULL,
+    status        VARCHAR(16) NOT NULL,
+    created_at    DATETIME    NOT NULL,
+    canceled_at   DATETIME,
+    checked_in_at DATETIME,
     UNIQUE KEY uk_activity_user(activity_id,user_id),
-    INDEX       idx_join_user(user_id,status),
+    INDEX         idx_join_user(user_id,status),
     CONSTRAINT fk_join_activity FOREIGN KEY (activity_id) REFERENCES activity (id),
     CONSTRAINT fk_join_user FOREIGN KEY (user_id) REFERENCES t_user (id)
 ) ENGINE=InnoDB;
@@ -122,18 +128,40 @@ CREATE TABLE message
     created_at DATETIME     NOT NULL,
     INDEX      idx_message_user(user_id,read_at)
 ) ENGINE=InnoDB;
+CREATE TABLE activity_chat
+(
+    id               BIGINT PRIMARY KEY AUTO_INCREMENT,
+    activity_id      BIGINT       NOT NULL,
+    user_id          BIGINT       NOT NULL,
+    parent_id        BIGINT,
+    reply_to_user_id BIGINT,
+    content          VARCHAR(500) NOT NULL,
+    created_at       DATETIME     NOT NULL,
+    INDEX       idx_chat_activity_time(activity_id, created_at)
+) ENGINE=InnoDB;
+CREATE TABLE activity_reminder_log
+(
+    id            BIGINT PRIMARY KEY AUTO_INCREMENT,
+    activity_id   BIGINT      NOT NULL,
+    user_id       BIGINT      NOT NULL,
+    reminder_type VARCHAR(16) NOT NULL,
+    created_at    DATETIME    NOT NULL,
+    UNIQUE KEY uk_reminder_activity_user_type(activity_id, user_id, reminder_type)
+) ENGINE=InnoDB;
 CREATE TABLE game_store
 (
-    id             BIGINT PRIMARY KEY AUTO_INCREMENT,
-    name           VARCHAR(100) NOT NULL,
-    city           VARCHAR(32)  NOT NULL,
-    address        VARCHAR(255) NOT NULL,
-    longitude      DECIMAL(10, 7),
-    latitude       DECIMAL(10, 7),
-    business_hours VARCHAR(100),
-    description    VARCHAR(1000),
-    status         VARCHAR(16)  NOT NULL DEFAULT 'PENDING',
-    created_at     DATETIME     NOT NULL
+    id                BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name              VARCHAR(100) NOT NULL,
+    city              VARCHAR(32)  NOT NULL,
+    address           VARCHAR(255) NOT NULL,
+    longitude         DECIMAL(10, 7),
+    latitude          DECIMAL(10, 7),
+    business_hours    VARCHAR(100),
+    description       VARCHAR(1000),
+    facilities        VARCHAR(500),
+    parking_available TINYINT      NOT NULL DEFAULT 0,
+    status            VARCHAR(16)  NOT NULL DEFAULT 'PENDING',
+    created_at        DATETIME     NOT NULL
 ) ENGINE=InnoDB;
 CREATE TABLE report
 (
@@ -146,6 +174,15 @@ CREATE TABLE report
     created_at  DATETIME     NOT NULL,
     handled_at  DATETIME,
     INDEX       idx_report_status(status)
+) ENGINE=InnoDB;
+CREATE TABLE user_block
+(
+    id              BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_id         BIGINT   NOT NULL,
+    blocked_user_id BIGINT   NOT NULL,
+    created_at      DATETIME NOT NULL,
+    UNIQUE KEY uk_user_block(user_id, blocked_user_id),
+    INDEX           idx_blocked_user(blocked_user_id)
 ) ENGINE=InnoDB;
 INSERT INTO game_type(name, sort_order)
 VALUES ('狼人杀', 1),

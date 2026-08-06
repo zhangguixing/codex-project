@@ -39,3 +39,4 @@ pnpm-debug.log*
 .cache/
 dist/
 coverage/
+uploads/

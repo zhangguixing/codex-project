@@ -18,8 +18,9 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) {
         String uri = req.getRequestURI();
-        if ("GET".equalsIgnoreCase(req.getMethod()) && uri.matches(".*/api/activities(?:/\\d+)?")) return true;
         String h = req.getHeader("Authorization");
+        if ("GET".equalsIgnoreCase(req.getMethod()) && uri.matches(".*/api/activities(?:/\\d+)?") && (h == null || !h.startsWith("Bearer ")))
+            return true;
         if (h == null || !h.startsWith("Bearer ")) throw new BizException("请先登录");
         try {
             req.setAttribute(ApiConstants.USER_ID, jwtService.parseUserId(h.substring(7)));

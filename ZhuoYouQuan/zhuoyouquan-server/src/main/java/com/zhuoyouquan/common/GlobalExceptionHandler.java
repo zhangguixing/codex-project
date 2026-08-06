@@ -25,5 +25,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Result<Void>> unexpected(Exception e) {
-        return ResponseEntity.internalServerError().body(Result.fail(500, "服务器繁忙，请稍后重试")); }
+        return ResponseEntity.internalServerError().body(Result.fail(500, "服务器繁忙，请稍后重试"));
     }
+}
