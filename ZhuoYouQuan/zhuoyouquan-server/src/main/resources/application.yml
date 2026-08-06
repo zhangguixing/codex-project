@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  application: { name: zhuoyouquan-server }
+  datasource:
+    url: jdbc:mysql://192.168.255.128:3306/zhuoyouquan?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  jackson: { default-property-inclusion: non_null }
+mybatis-plus:
+  configuration:
+    {
+      map-underscore-to-camel-case: true,
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl,
+    }
+app:
+  jwt:
+    secret: replace-with-a-32-byte-minimum-jwt-secret-key-now
+    expires-hours: 720
+  wechat:
+    app-id: ""
+    app-secret: ""
+    mock-login: true

@@ -1,0 +1,56 @@
+<view class="page">
+  <view class="create-hero">
+    <view wx:if="{{editing}}" class="edit-nav">
+      <button class="back-button" bindtap="backToDetail" aria-label="返回活动详情">‹</button>
+      <view class="edit-nav-title">修改活动</view>
+      <view class="nav-placeholder"></view>
+    </view>
+    <view wx:else class="page-tab-title">开局</view>
+    <view wx:if="{{!editing}}" class="eyebrow">HOST A SESSION</view>
+    <view class="page-title">{{editing ? '更新活动信息' : '发起新组局'}}</view>
+    <view class="lead">{{editing ? '保存后，已报名玩家将看到最新安排。' : '写清时间和地点，让对的人找到你。'}}</view>
+  </view>
+
+  <view class="form">
+    <view class="form-group group-basic"><view class="group-title">基础信息</view><view class="field">
+      <view class="label">活动标题</view>
+      <input data-field="title" bindinput="changeField" placeholder="例如：周五狼人杀欢乐局" value="{{form.title}}" maxlength="80" />
+    </view>
+
+    <view class="field">
+      <view class="label">游戏类型</view>
+      <picker range="{{types}}" range-key="name" value="{{typeIndex}}" bindchange="changeType">
+        <view class="picker-value {{hasType ? '' : 'placeholder'}}">{{typeLabel}}<text>></text></view>
+      </picker>
+    </view>
+    <view class="field"><view class="label">活动封面</view><view class="cover-upload" bindtap="chooseCover"><image wx:if="{{form.coverUrl}}" class="cover-preview" src="{{form.coverUrl}}" mode="aspectFill"/><view wx:else class="cover-fallback {{coverTheme}}"><view>{{typeLabel === '请选择游戏类型' ? '桌游活动' : typeLabel}}</view><text>默认封面</text></view><view class="cover-upload-action"><text>{{uploadingCover ? '上传中...' : (form.coverUrl ? '更换封面' : '上传封面')}}</text><text>›</text></view></view></view>
+    </view>
+
+    <view class="form-group group-game"><view class="group-title">游戏信息</view><view class="split"><view class="field half"><view class="label">预计时长（分钟）</view><input type="number" data-field="durationMinutes" bindinput="changeField" value="{{form.durationMinutes}}" /></view><view class="field half"><view class="label">难度</view><picker range="{{['轻松','进阶','硬核']}}" bindchange="changeDifficulty"><view class="picker-value">{{form.difficulty}}</view></picker></view></view><view class="split"><view class="field half"><view class="label">语言</view><input data-field="language" bindinput="changeField" value="{{form.language}}" /></view><view class="field half"><view class="label">是否自带游戏</view><switch color="#D85143" checked="{{form.bringGame}}" data-field="bringGame" bindchange="changeSwitch" /></view></view><view class="switch-row"><view><view class="switch-title">提供新手教学</view><view class="switch-desc">到场后先讲规则与流程</view></view><switch color="#D85143" checked="{{form.teachingProvided}}" data-field="teachingProvided" bindchange="changeSwitch" /></view></view>
+
+    <view class="form-group group-time"><view class="group-title">时间安排</view><view class="split">
+      <view class="field half">
+        <view class="label">日期</view>
+        <picker mode="date" value="{{form.date}}" start="2026-01-01" bindchange="changeField" data-field="date"><view class="picker-value">{{form.date}}</view></picker>
+      </view>
+      <view class="field half">
+        <view class="label">开始时间</view>
+        <picker mode="time" value="{{form.time}}" bindchange="changeField" data-field="time"><view class="picker-value">{{form.time}}</view></picker>
+      </view>
+    </view></view>
+
+    <view class="form-group group-fee"><view class="group-title">费用设置</view><view class="split">
+      <view class="field half"><view class="label">人数上限</view><input type="number" data-field="maxPeople" bindinput="changeField" value="{{form.maxPeople}}" /></view>
+      <view class="field half"><view class="label">人均费用</view><input type="digit" data-field="fee" bindinput="changeField" value="{{form.fee}}" /></view>
+    </view></view>
+
+    <view class="form-group group-place"><view class="group-title">活动地点</view><view class="field"><view class="location-action" bindtap="chooseLocation"><view><view class="location-title">{{form.storeName || '搜索或地图选点'}}</view><view class="location-address {{form.address ? '' : 'placeholder'}}">{{form.address || '选点后自动保存城市与完整地址'}}</view></view><text>⌕</text></view></view></view>
+    <view class="form-group group-description"><view class="group-title">组局说明</view><view class="field"><textarea data-field="description" bindinput="changeField" placeholder="介绍玩法、规则和适合的人群" value="{{form.description}}" maxlength="2000" /></view></view>
+
+    <view class="switch-row">
+      <view><view class="switch-title">欢迎新手</view><view class="switch-desc">新玩家也能轻松加入</view></view>
+      <switch color="#D85143" checked="{{form.newbieFriendly}}" data-field="newbieFriendly" bindchange="changeSwitch" />
+    </view>
+    <button class="primary-button {{submitting ? 'disabled' : ''}}" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submit">{{editing ? '保存修改' : '发布活动'}}</button>
+  </view>
+</view>

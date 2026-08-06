@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/discover/index",
+    "pages/create/index",
+    "pages/messages/index",
+    "pages/profile/index",
+    "pages/stores/index",
+    "pages/store-detail/index",
+    "pages/detail/index"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "navigationBarBackgroundColor": "#182028",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "\u684c\u6e38\u5708",
+    "backgroundColor": "#F4F1EB",
+    "backgroundTextStyle": "dark"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于在地图上选择活动地点"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation"
+  ],
+  "tabBar": {
+    "custom": true,
+    "color": "#77808A",
+    "selectedColor": "#D85143",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/home/index", "text": "\u9644\u8fd1" },
+      { "pagePath": "pages/discover/index", "text": "\u53d1\u73b0" },
+      { "pagePath": "pages/create/index", "text": "\u5f00\u5c40" },
+      { "pagePath": "pages/messages/index", "text": "\u6d88\u606f" },
+      { "pagePath": "pages/profile/index", "text": "\u6211\u7684" }
+    ]
+  },
+  "usingComponents": {}
+}
